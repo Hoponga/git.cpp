@@ -28,6 +28,8 @@ zig-cache/
 *.o
 *.d
 *.dot
+*.cmake
+*dylib
 
 *.sw?
 

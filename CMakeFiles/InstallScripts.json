@@ -1,0 +1,21 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/kailashr/ggml/cmake_install.cmake",
+		"/Users/kailashr/ggml/src/cmake_install.cmake",
+		"/Users/kailashr/ggml/src/ggml-cpu/cmake_install.cmake",
+		"/Users/kailashr/ggml/src/ggml-blas/cmake_install.cmake",
+		"/Users/kailashr/ggml/src/ggml-metal/cmake_install.cmake",
+		"/Users/kailashr/ggml/tests/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/yolo/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/gpt-2/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/gpt-j/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/mnist/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/sam/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/simple/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/magika/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/perf-metal/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
