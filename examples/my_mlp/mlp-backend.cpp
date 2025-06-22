@@ -74,14 +74,15 @@ const char * file_name = "./data/model.bin";
 
 bool read_weights(std::string file_name, float * fc1_weight, float * fc1_bias, float * fc2_weight, float * fc2_bias) {
     // for now, just set all the weights to 0
-    memset(fc1_weight, 0, MNIST_NINPUT * HIDDEN_SIZE * sizeof(float));
-    memset(fc1_bias, 0, HIDDEN_SIZE * sizeof(float));
-    memset(fc2_weight, 0, HIDDEN_SIZE * MNIST_NCLASSES * sizeof(float));
-    memset(fc2_bias, 0, MNIST_NCLASSES * sizeof(float));
+    memset(fc1_weight, 1, MNIST_NINPUT * HIDDEN_SIZE * sizeof(float));
+    memset(fc1_bias, 1, HIDDEN_SIZE * sizeof(float));
+    memset(fc2_weight, 1, HIDDEN_SIZE * MNIST_NCLASSES * sizeof(float));
+    memset(fc2_bias, 1, MNIST_NCLASSES * sizeof(float));
     std::vector<float*> blocks = {fc1_weight, fc1_bias, fc2_weight, fc2_bias};
 
     auto fin = std::ifstream(file_name, std::ios::binary);
     for (float* block : blocks){
+        std::cout << "reading block: " << block << std::endl;
         int tensor_dims;
         fin.read((char *) &tensor_dims, sizeof(int)); 
         std::vector<int> values(tensor_dims);
@@ -156,6 +157,7 @@ bool load_model(mlp_model & model, float * fc1_weight, float * fc1_bias, float *
 
     if(!model.backend) {
         // fallback to CPU backend
+        std::cout << "using CPU backend" << std::endl;
         model.backend = ggml_backend_cpu_init();
     }
     // STEP 4: ALLOCATE THE BACKEND BUFFER 
@@ -239,11 +241,11 @@ struct ggml_cgraph * build_graph(mlp_model& model) {
 
 
 // output is in model.logits 
-void compute(mlp_model & model, ggml_gallocr_t allocr) {
+struct ggml_tensor* compute(mlp_model & model, ggml_gallocr_t allocr) {
     // reset the allocator to free all the memory allocated during the previous inference
 
     struct ggml_cgraph * gf = build_graph(model);
-
+    ggml_graph_dump_dot(gf, NULL, "mnist_graph.dot"); 
     // allocate tensors
     ggml_gallocr_alloc_graph(allocr, gf);
 
@@ -255,7 +257,11 @@ void compute(mlp_model & model, ggml_gallocr_t allocr) {
         ggml_backend_cpu_set_n_threads(model.backend, n_threads);
     }
 
+    std::cout << "running graph" << std::endl;
+
     ggml_backend_graph_compute(model.backend, gf);
+
+    return ggml_graph_node(gf, -1);
 
     // in this case, the output tensor is the last one in the graph
 }
@@ -317,9 +323,9 @@ bool mnist_batch_load(const std::string & fname,
         }
     }
 
-    ggml_backend_tensor_set(images, img_buf.data(), 0, img_buf.size()*sizeof(float));
+    ggml_backend_tensor_set(images, img_buf.data(), 0, img_buf.size()*ggml_type_size(MODEL_PRECISION));
     if (labels) {
-        ggml_backend_tensor_set(labels, lbl_buf.data(), 0, lbl_buf.size()*sizeof(float));
+        ggml_backend_tensor_set(labels, lbl_buf.data(), 0, lbl_buf.size()*ggml_type_size(MODEL_PRECISION));
     }
 
     return true;
@@ -365,6 +371,52 @@ void print_image(struct ggml_tensor * images) {
     std::cout << std::endl;
 }
 
+void print_weights(mlp_model & model) {
+    std::cout << "=== FC1 WEIGHTS ===" << std::endl;
+    std::vector<float> fc1_w_data(ggml_nelements(model.fc1_weight));
+    ggml_backend_tensor_get(model.fc1_weight, fc1_w_data.data(), 0, ggml_nbytes(model.fc1_weight));
+    
+    std::cout << "FC1 weights shape: " << model.fc1_weight->ne[0] << " x " << model.fc1_weight->ne[1] << std::endl;
+    std::cout << "First 10 FC1 weights: ";
+    for (int i = 0; i < 10 && i < (int)fc1_w_data.size(); ++i) {
+        std::cout << fc1_w_data[i] << " ";
+    }
+    std::cout << std::endl;
+    
+    std::cout << "\n=== FC1 BIAS ===" << std::endl;
+    std::vector<float> fc1_b_data(ggml_nelements(model.fc1_bias));
+    ggml_backend_tensor_get(model.fc1_bias, fc1_b_data.data(), 0, ggml_nbytes(model.fc1_bias));
+    
+    std::cout << "FC1 bias shape: " << model.fc1_bias->ne[0] << std::endl;
+    std::cout << "First 10 FC1 biases: ";
+    for (int i = 0; i < 10 && i < (int)fc1_b_data.size(); ++i) {
+        std::cout << fc1_b_data[i] << " ";
+    }
+    std::cout << std::endl;
+    
+    std::cout << "\n=== FC2 WEIGHTS ===" << std::endl;
+    std::vector<float> fc2_w_data(ggml_nelements(model.fc2_weight));
+    ggml_backend_tensor_get(model.fc2_weight, fc2_w_data.data(), 0, ggml_nbytes(model.fc2_weight));
+    
+    std::cout << "FC2 weights shape: " << model.fc2_weight->ne[0] << " x " << model.fc2_weight->ne[1] << std::endl;
+    std::cout << "First 10 FC2 weights: ";
+    for (int i = 0; i < 10 && i < (int)fc2_w_data.size(); ++i) {
+        std::cout << fc2_w_data[i] << " ";
+    }
+    std::cout << std::endl;
+    
+    std::cout << "\n=== FC2 BIAS ===" << std::endl;
+    std::vector<float> fc2_b_data(ggml_nelements(model.fc2_bias));
+    ggml_backend_tensor_get(model.fc2_bias, fc2_b_data.data(), 0, ggml_nbytes(model.fc2_bias));
+    
+    std::cout << "FC2 bias shape: " << model.fc2_bias->ne[0] << std::endl;
+    std::cout << "All FC2 biases: ";
+    for (int i = 0; i < (int)fc2_b_data.size(); ++i) {
+        std::cout << fc2_b_data[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 int main(void) {
 
     float fc1_weight[MNIST_NINPUT * HIDDEN_SIZE];
@@ -378,6 +430,8 @@ int main(void) {
     // read in images 
 
     load_model(model, fc1_weight, fc1_bias, fc2_weight, fc2_bias);
+
+    print_weights(model);
 
     if (!mnist_batch_load("/Users/kailashr/ggml/examples/my_mlp/mnist_raw.txt", model.images)) {
         fprintf(stderr, "failed to load images\n");
@@ -401,7 +455,8 @@ int main(void) {
         //ggml_gallocr_alloc_graph(allocr, gf);
     }
 
-    compute(model, allocr); 
+    struct ggml_tensor* result_node = compute(model, allocr); 
+    model.logits = result_node; 
 
     // create a array to print result
     std::vector<float> out_data(ggml_nelements(model.logits));
