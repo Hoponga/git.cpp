@@ -22,6 +22,9 @@ ggml_env/
 src/arm_neon.h
 tests/arm_neon.h
 
+examples/my_mlp/data/*
+examples/my_mlp/mnist_raw.txt
+
 zig-out/
 zig-cache/
 
