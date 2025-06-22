@@ -15,6 +15,7 @@
 		"/Users/kailashr/ggml/examples/sam/cmake_install.cmake",
 		"/Users/kailashr/ggml/examples/simple/cmake_install.cmake",
 		"/Users/kailashr/ggml/examples/magika/cmake_install.cmake",
+		"/Users/kailashr/ggml/examples/my_mlp/cmake_install.cmake",
 		"/Users/kailashr/ggml/examples/perf-metal/cmake_install.cmake"
 	],
 	"Parallel" : false

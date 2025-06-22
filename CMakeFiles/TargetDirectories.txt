@@ -137,6 +137,14 @@
 /Users/kailashr/ggml/examples/magika/CMakeFiles/install.dir
 /Users/kailashr/ggml/examples/magika/CMakeFiles/install/local.dir
 /Users/kailashr/ggml/examples/magika/CMakeFiles/install/strip.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/mlp-backend.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/test.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/edit_cache.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/rebuild_cache.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/list_install_components.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/install.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/install/local.dir
+/Users/kailashr/ggml/examples/my_mlp/CMakeFiles/install/strip.dir
 /Users/kailashr/ggml/examples/perf-metal/CMakeFiles/perf-metal.dir
 /Users/kailashr/ggml/examples/perf-metal/CMakeFiles/test.dir
 /Users/kailashr/ggml/examples/perf-metal/CMakeFiles/edit_cache.dir

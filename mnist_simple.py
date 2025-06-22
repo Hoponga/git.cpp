@@ -5,6 +5,11 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
+import ssl
+import os
+
+# Fix SSL certificate issues for MNIST download
+ssl._create_default_https_context = ssl._create_unverified_context
 
 # Set device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -24,19 +29,51 @@ transform = transforms.Compose([
 
 # Load MNIST dataset
 print("Loading MNIST dataset...")
-train_dataset = torchvision.datasets.MNIST(
-    root='./data', 
-    train=True, 
-    download=True, 
-    transform=transform
-)
+try:
+    train_dataset = torchvision.datasets.MNIST(
+        root='./data', 
+        train=True, 
+        download=True, 
+        transform=transform
+    )
 
-test_dataset = torchvision.datasets.MNIST(
-    root='./data', 
-    train=False, 
-    download=True, 
-    transform=transform
-)
+    test_dataset = torchvision.datasets.MNIST(
+        root='./data', 
+        train=False, 
+        download=True, 
+        transform=transform
+    )
+except Exception as e:
+    print(f"Error downloading MNIST: {e}")
+    print("Trying alternative download method...")
+    
+    # Alternative: try without SSL verification
+    import urllib.request
+    import urllib.error
+    
+    # Create data directory
+    os.makedirs('./data', exist_ok=True)
+    
+    # Try to download manually if needed
+    try:
+        train_dataset = torchvision.datasets.MNIST(
+            root='./data', 
+            train=True, 
+            download=True, 
+            transform=transform
+        )
+        test_dataset = torchvision.datasets.MNIST(
+            root='./data', 
+            train=False, 
+            download=True, 
+            transform=transform
+        )
+    except:
+        print("Still having issues. Please check your internet connection or try:")
+        print("1. pip install --upgrade certifi")
+        print("2. pip install --upgrade urllib3")
+        print("3. Or run: /Applications/Python\\ 3.x/Install\\ Certificates.command")
+        raise
 
 # Create data loaders
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)

@@ -705,6 +705,19 @@ magika/fast:
 .PHONY : magika/fast
 
 #=============================================================================
+# Target rules for targets named mlp-backend
+
+# Build rule for target.
+mlp-backend: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mlp-backend
+.PHONY : mlp-backend
+
+# fast build rule for target.
+mlp-backend/fast:
+	$(MAKE) $(MAKESILENT) -f examples/my_mlp/CMakeFiles/mlp-backend.dir/build.make examples/my_mlp/CMakeFiles/mlp-backend.dir/build
+.PHONY : mlp-backend/fast
+
+#=============================================================================
 # Target rules for targets named perf-metal
 
 # Build rule for target.
@@ -746,6 +759,7 @@ help:
 	@echo "... gpt-j"
 	@echo "... gpt-j-quantize"
 	@echo "... magika"
+	@echo "... mlp-backend"
 	@echo "... mnist-common"
 	@echo "... mnist-eval"
 	@echo "... mnist-train"
@@ -785,25 +799,4 @@ help:
 cmake_check_build_system:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
-
-CC = gcc
-CFLAGS = -O3 -Wall -Wextra -std=c99 -pthread
-INCLUDES = -I../include
-LIBS = -lm
-
-# GGML source files
-GGML_SRC = ../src/ggml.c
-
-# Target
-TARGET = mnist_simple
-
-all: $(TARGET)
-
-$(TARGET): mnist_simple.c $(GGML_SRC)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
-
-clean:
-	rm -f $(TARGET)
-
-.PHONY: all clean
 

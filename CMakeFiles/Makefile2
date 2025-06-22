@@ -99,6 +99,7 @@ examples/all: examples/mnist/all
 examples/all: examples/sam/all
 examples/all: examples/simple/all
 examples/all: examples/magika/all
+examples/all: examples/my_mlp/all
 examples/all: examples/perf-metal/all
 .PHONY : examples/all
 
@@ -112,6 +113,7 @@ examples/codegen: examples/mnist/codegen
 examples/codegen: examples/sam/codegen
 examples/codegen: examples/simple/codegen
 examples/codegen: examples/magika/codegen
+examples/codegen: examples/my_mlp/codegen
 examples/codegen: examples/perf-metal/codegen
 .PHONY : examples/codegen
 
@@ -123,6 +125,7 @@ examples/preinstall: examples/mnist/preinstall
 examples/preinstall: examples/sam/preinstall
 examples/preinstall: examples/simple/preinstall
 examples/preinstall: examples/magika/preinstall
+examples/preinstall: examples/my_mlp/preinstall
 examples/preinstall: examples/perf-metal/preinstall
 .PHONY : examples/preinstall
 
@@ -136,6 +139,7 @@ examples/clean: examples/mnist/clean
 examples/clean: examples/sam/clean
 examples/clean: examples/simple/clean
 examples/clean: examples/magika/clean
+examples/clean: examples/my_mlp/clean
 examples/clean: examples/perf-metal/clean
 .PHONY : examples/clean
 
@@ -238,6 +242,25 @@ examples/mnist/clean: examples/mnist/CMakeFiles/mnist-common.dir/clean
 examples/mnist/clean: examples/mnist/CMakeFiles/mnist-eval.dir/clean
 examples/mnist/clean: examples/mnist/CMakeFiles/mnist-train.dir/clean
 .PHONY : examples/mnist/clean
+
+#=============================================================================
+# Directory level rules for directory examples/my_mlp
+
+# Recursive "all" directory target.
+examples/my_mlp/all: examples/my_mlp/CMakeFiles/mlp-backend.dir/all
+.PHONY : examples/my_mlp/all
+
+# Recursive "codegen" directory target.
+examples/my_mlp/codegen: examples/my_mlp/CMakeFiles/mlp-backend.dir/codegen
+.PHONY : examples/my_mlp/codegen
+
+# Recursive "preinstall" directory target.
+examples/my_mlp/preinstall:
+.PHONY : examples/my_mlp/preinstall
+
+# Recursive "clean" directory target.
+examples/my_mlp/clean: examples/my_mlp/CMakeFiles/mlp-backend.dir/clean
+.PHONY : examples/my_mlp/clean
 
 #=============================================================================
 # Directory level rules for directory examples/perf-metal
@@ -488,12 +511,12 @@ tests/clean: tests/CMakeFiles/test-cont.dir/clean
 src/CMakeFiles/ggml-base.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/ggml-base.dir/build.make src/CMakeFiles/ggml-base.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/ggml-base.dir/build.make src/CMakeFiles/ggml-base.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=6,7,8,9,10,11,12,13,14 "Built target ggml-base"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=6,7,8,9,10,11,12,13 "Built target ggml-base"
 .PHONY : src/CMakeFiles/ggml-base.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/ggml-base.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/ggml-base.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : src/CMakeFiles/ggml-base.dir/rule
@@ -505,7 +528,7 @@ ggml-base: src/CMakeFiles/ggml-base.dir/rule
 # codegen rule for target.
 src/CMakeFiles/ggml-base.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/ggml-base.dir/build.make src/CMakeFiles/ggml-base.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=6,7,8,9,10,11,12,13,14 "Finished codegen for target ggml-base"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=6,7,8,9,10,11,12,13 "Finished codegen for target ggml-base"
 .PHONY : src/CMakeFiles/ggml-base.dir/codegen
 
 # clean rule for target.
@@ -560,7 +583,7 @@ src/CMakeFiles/ggml-cpu.dir/all: src/CMakeFiles/ggml-base.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/ggml-cpu.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 23
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 22
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/ggml-cpu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : src/CMakeFiles/ggml-cpu.dir/rule
@@ -587,7 +610,7 @@ src/CMakeFiles/ggml-cpu.dir/clean:
 src/ggml-blas/CMakeFiles/ggml-blas.dir/all: src/CMakeFiles/ggml-base.dir/all
 	$(MAKE) $(MAKESILENT) -f src/ggml-blas/CMakeFiles/ggml-blas.dir/build.make src/ggml-blas/CMakeFiles/ggml-blas.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/ggml-blas/CMakeFiles/ggml-blas.dir/build.make src/ggml-blas/CMakeFiles/ggml-blas.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=15 "Built target ggml-blas"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=14,15 "Built target ggml-blas"
 .PHONY : src/ggml-blas/CMakeFiles/ggml-blas.dir/all
 
 # Build rule for subdir invocation for target.
@@ -604,7 +627,7 @@ ggml-blas: src/ggml-blas/CMakeFiles/ggml-blas.dir/rule
 # codegen rule for target.
 src/ggml-blas/CMakeFiles/ggml-blas.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f src/ggml-blas/CMakeFiles/ggml-blas.dir/build.make src/ggml-blas/CMakeFiles/ggml-blas.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=15 "Finished codegen for target ggml-blas"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=14,15 "Finished codegen for target ggml-blas"
 .PHONY : src/ggml-blas/CMakeFiles/ggml-blas.dir/codegen
 
 # clean rule for target.
@@ -624,7 +647,7 @@ src/ggml-metal/CMakeFiles/ggml-metal.dir/all: src/CMakeFiles/ggml-base.dir/all
 
 # Build rule for subdir invocation for target.
 src/ggml-metal/CMakeFiles/ggml-metal.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : src/ggml-metal/CMakeFiles/ggml-metal.dir/rule
@@ -655,12 +678,12 @@ tests/CMakeFiles/test-backend-ops.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.di
 tests/CMakeFiles/test-backend-ops.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-backend-ops.dir/build.make tests/CMakeFiles/test-backend-ops.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-backend-ops.dir/build.make tests/CMakeFiles/test-backend-ops.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=66,67 "Built target test-backend-ops"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=67 "Built target test-backend-ops"
 .PHONY : tests/CMakeFiles/test-backend-ops.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test-backend-ops.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test-backend-ops.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test-backend-ops.dir/rule
@@ -672,7 +695,7 @@ test-backend-ops: tests/CMakeFiles/test-backend-ops.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-backend-ops.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-backend-ops.dir/build.make tests/CMakeFiles/test-backend-ops.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=66,67 "Finished codegen for target test-backend-ops"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=67 "Finished codegen for target test-backend-ops"
 .PHONY : tests/CMakeFiles/test-backend-ops.dir/codegen
 
 # clean rule for target.
@@ -727,12 +750,12 @@ tests/CMakeFiles/test-quantize-fns.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.d
 tests/CMakeFiles/test-quantize-fns.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-quantize-fns.dir/build.make tests/CMakeFiles/test-quantize-fns.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-quantize-fns.dir/build.make tests/CMakeFiles/test-quantize-fns.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=88,89 "Built target test-quantize-fns"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=89 "Built target test-quantize-fns"
 .PHONY : tests/CMakeFiles/test-quantize-fns.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test-quantize-fns.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test-quantize-fns.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test-quantize-fns.dir/rule
@@ -744,7 +767,7 @@ test-quantize-fns: tests/CMakeFiles/test-quantize-fns.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-quantize-fns.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-quantize-fns.dir/build.make tests/CMakeFiles/test-quantize-fns.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=88,89 "Finished codegen for target test-quantize-fns"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=89 "Finished codegen for target test-quantize-fns"
 .PHONY : tests/CMakeFiles/test-quantize-fns.dir/codegen
 
 # clean rule for target.
@@ -799,7 +822,7 @@ tests/CMakeFiles/test-pool.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.dir/all
 tests/CMakeFiles/test-pool.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-pool.dir/build.make tests/CMakeFiles/test-pool.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-pool.dir/build.make tests/CMakeFiles/test-pool.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=86,87 "Built target test-pool"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=87,88 "Built target test-pool"
 .PHONY : tests/CMakeFiles/test-pool.dir/all
 
 # Build rule for subdir invocation for target.
@@ -816,7 +839,7 @@ test-pool: tests/CMakeFiles/test-pool.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-pool.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-pool.dir/build.make tests/CMakeFiles/test-pool.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=86,87 "Finished codegen for target test-pool"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=87,88 "Finished codegen for target test-pool"
 .PHONY : tests/CMakeFiles/test-pool.dir/codegen
 
 # clean rule for target.
@@ -835,7 +858,7 @@ tests/CMakeFiles/test-arange.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.dir/all
 tests/CMakeFiles/test-arange.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-arange.dir/build.make tests/CMakeFiles/test-arange.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-arange.dir/build.make tests/CMakeFiles/test-arange.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=64,65 "Built target test-arange"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=65,66 "Built target test-arange"
 .PHONY : tests/CMakeFiles/test-arange.dir/all
 
 # Build rule for subdir invocation for target.
@@ -852,7 +875,7 @@ test-arange: tests/CMakeFiles/test-arange.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-arange.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-arange.dir/build.make tests/CMakeFiles/test-arange.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=64,65 "Finished codegen for target test-arange"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=65,66 "Finished codegen for target test-arange"
 .PHONY : tests/CMakeFiles/test-arange.dir/codegen
 
 # clean rule for target.
@@ -907,12 +930,12 @@ tests/CMakeFiles/test-pad-reflect-1d.dir/all: src/ggml-blas/CMakeFiles/ggml-blas
 tests/CMakeFiles/test-pad-reflect-1d.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-pad-reflect-1d.dir/build.make tests/CMakeFiles/test-pad-reflect-1d.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-pad-reflect-1d.dir/build.make tests/CMakeFiles/test-pad-reflect-1d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=85 "Built target test-pad-reflect-1d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=85,86 "Built target test-pad-reflect-1d"
 .PHONY : tests/CMakeFiles/test-pad-reflect-1d.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test-pad-reflect-1d.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test-pad-reflect-1d.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test-pad-reflect-1d.dir/rule
@@ -924,7 +947,7 @@ test-pad-reflect-1d: tests/CMakeFiles/test-pad-reflect-1d.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-pad-reflect-1d.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-pad-reflect-1d.dir/build.make tests/CMakeFiles/test-pad-reflect-1d.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=85 "Finished codegen for target test-pad-reflect-1d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=85,86 "Finished codegen for target test-pad-reflect-1d"
 .PHONY : tests/CMakeFiles/test-pad-reflect-1d.dir/codegen
 
 # clean rule for target.
@@ -1015,12 +1038,12 @@ tests/CMakeFiles/test-conv-transpose-1d.dir/all: src/ggml-blas/CMakeFiles/ggml-b
 tests/CMakeFiles/test-conv-transpose-1d.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv-transpose-1d.dir/build.make tests/CMakeFiles/test-conv-transpose-1d.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv-transpose-1d.dir/build.make tests/CMakeFiles/test-conv-transpose-1d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=72 "Built target test-conv-transpose-1d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=72,73 "Built target test-conv-transpose-1d"
 .PHONY : tests/CMakeFiles/test-conv-transpose-1d.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test-conv-transpose-1d.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test-conv-transpose-1d.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test-conv-transpose-1d.dir/rule
@@ -1032,7 +1055,7 @@ test-conv-transpose-1d: tests/CMakeFiles/test-conv-transpose-1d.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-conv-transpose-1d.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv-transpose-1d.dir/build.make tests/CMakeFiles/test-conv-transpose-1d.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=72 "Finished codegen for target test-conv-transpose-1d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=72,73 "Finished codegen for target test-conv-transpose-1d"
 .PHONY : tests/CMakeFiles/test-conv-transpose-1d.dir/codegen
 
 # clean rule for target.
@@ -1159,7 +1182,7 @@ tests/CMakeFiles/test-conv1d.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.dir/all
 tests/CMakeFiles/test-conv1d.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv1d.dir/build.make tests/CMakeFiles/test-conv1d.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv1d.dir/build.make tests/CMakeFiles/test-conv1d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=73,74 "Built target test-conv1d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=74,75 "Built target test-conv1d"
 .PHONY : tests/CMakeFiles/test-conv1d.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1176,7 +1199,7 @@ test-conv1d: tests/CMakeFiles/test-conv1d.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-conv1d.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv1d.dir/build.make tests/CMakeFiles/test-conv1d.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=73,74 "Finished codegen for target test-conv1d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=74,75 "Finished codegen for target test-conv1d"
 .PHONY : tests/CMakeFiles/test-conv1d.dir/codegen
 
 # clean rule for target.
@@ -1195,7 +1218,7 @@ tests/CMakeFiles/test-conv2d.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.dir/all
 tests/CMakeFiles/test-conv2d.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv2d.dir/build.make tests/CMakeFiles/test-conv2d.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv2d.dir/build.make tests/CMakeFiles/test-conv2d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=75,76 "Built target test-conv2d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=76,77 "Built target test-conv2d"
 .PHONY : tests/CMakeFiles/test-conv2d.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1212,7 +1235,7 @@ test-conv2d: tests/CMakeFiles/test-conv2d.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-conv2d.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv2d.dir/build.make tests/CMakeFiles/test-conv2d.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=75,76 "Finished codegen for target test-conv2d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=76,77 "Finished codegen for target test-conv2d"
 .PHONY : tests/CMakeFiles/test-conv2d.dir/codegen
 
 # clean rule for target.
@@ -1231,12 +1254,12 @@ tests/CMakeFiles/test-conv2d-dw.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.dir/
 tests/CMakeFiles/test-conv2d-dw.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv2d-dw.dir/build.make tests/CMakeFiles/test-conv2d-dw.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv2d-dw.dir/build.make tests/CMakeFiles/test-conv2d-dw.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=77,78 "Built target test-conv2d-dw"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=78 "Built target test-conv2d-dw"
 .PHONY : tests/CMakeFiles/test-conv2d-dw.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test-conv2d-dw.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test-conv2d-dw.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test-conv2d-dw.dir/rule
@@ -1248,7 +1271,7 @@ test-conv2d-dw: tests/CMakeFiles/test-conv2d-dw.dir/rule
 # codegen rule for target.
 tests/CMakeFiles/test-conv2d-dw.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-conv2d-dw.dir/build.make tests/CMakeFiles/test-conv2d-dw.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=77,78 "Finished codegen for target test-conv2d-dw"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=78 "Finished codegen for target test-conv2d-dw"
 .PHONY : tests/CMakeFiles/test-conv2d-dw.dir/codegen
 
 # clean rule for target.
@@ -1410,7 +1433,7 @@ examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/all: examples/CMakeFiles/common.dir/all
 examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=40,41 "Built target gpt-2-ctx"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=39,40 "Built target gpt-2-ctx"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1427,7 +1450,7 @@ gpt-2-ctx: examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/rule
 # codegen rule for target.
 examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=40,41 "Finished codegen for target gpt-2-ctx"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=39,40 "Finished codegen for target gpt-2-ctx"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-ctx.dir/codegen
 
 # clean rule for target.
@@ -1448,12 +1471,12 @@ examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/all: examples/CMakeFiles/common.dir/al
 examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=34,35 "Built target gpt-2-alloc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=34 "Built target gpt-2-alloc"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/all
 
 # Build rule for subdir invocation for target.
 examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 35
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 34
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/rule
@@ -1465,7 +1488,7 @@ gpt-2-alloc: examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/rule
 # codegen rule for target.
 examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=34,35 "Finished codegen for target gpt-2-alloc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=34 "Finished codegen for target gpt-2-alloc"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-alloc.dir/codegen
 
 # clean rule for target.
@@ -1486,7 +1509,7 @@ examples/gpt-2/CMakeFiles/gpt-2-backend.dir/all: examples/CMakeFiles/common.dir/
 examples/gpt-2/CMakeFiles/gpt-2-backend.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-backend.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-backend.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-backend.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-backend.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=36,37 "Built target gpt-2-backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=35,36 "Built target gpt-2-backend"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-backend.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1503,7 +1526,7 @@ gpt-2-backend: examples/gpt-2/CMakeFiles/gpt-2-backend.dir/rule
 # codegen rule for target.
 examples/gpt-2/CMakeFiles/gpt-2-backend.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-backend.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-backend.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=36,37 "Finished codegen for target gpt-2-backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=35,36 "Finished codegen for target gpt-2-backend"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-backend.dir/codegen
 
 # clean rule for target.
@@ -1562,12 +1585,12 @@ examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/all: examples/CMakeFiles/common.dir
 examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=42 "Built target gpt-2-quantize"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=41,42 "Built target gpt-2-quantize"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/all
 
 # Build rule for subdir invocation for target.
 examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 34
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 35
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/rule
@@ -1579,7 +1602,7 @@ gpt-2-quantize: examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/rule
 # codegen rule for target.
 examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=42 "Finished codegen for target gpt-2-quantize"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=41,42 "Finished codegen for target gpt-2-quantize"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-quantize.dir/codegen
 
 # clean rule for target.
@@ -1600,7 +1623,7 @@ examples/gpt-2/CMakeFiles/gpt-2-batched.dir/all: examples/CMakeFiles/common.dir/
 examples/gpt-2/CMakeFiles/gpt-2-batched.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-batched.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-batched.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-batched.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-batched.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=38,39 "Built target gpt-2-batched"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=37,38 "Built target gpt-2-batched"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-batched.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1617,7 +1640,7 @@ gpt-2-batched: examples/gpt-2/CMakeFiles/gpt-2-batched.dir/rule
 # codegen rule for target.
 examples/gpt-2/CMakeFiles/gpt-2-batched.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-2/CMakeFiles/gpt-2-batched.dir/build.make examples/gpt-2/CMakeFiles/gpt-2-batched.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=38,39 "Finished codegen for target gpt-2-batched"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=37,38 "Finished codegen for target gpt-2-batched"
 .PHONY : examples/gpt-2/CMakeFiles/gpt-2-batched.dir/codegen
 
 # clean rule for target.
@@ -1638,12 +1661,12 @@ examples/gpt-j/CMakeFiles/gpt-j.dir/all: examples/CMakeFiles/common.dir/all
 examples/gpt-j/CMakeFiles/gpt-j.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-j/CMakeFiles/gpt-j.dir/build.make examples/gpt-j/CMakeFiles/gpt-j.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-j/CMakeFiles/gpt-j.dir/build.make examples/gpt-j/CMakeFiles/gpt-j.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=45,46 "Built target gpt-j"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=45 "Built target gpt-j"
 .PHONY : examples/gpt-j/CMakeFiles/gpt-j.dir/all
 
 # Build rule for subdir invocation for target.
 examples/gpt-j/CMakeFiles/gpt-j.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 35
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 34
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/gpt-j/CMakeFiles/gpt-j.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : examples/gpt-j/CMakeFiles/gpt-j.dir/rule
@@ -1655,7 +1678,7 @@ gpt-j: examples/gpt-j/CMakeFiles/gpt-j.dir/rule
 # codegen rule for target.
 examples/gpt-j/CMakeFiles/gpt-j.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-j/CMakeFiles/gpt-j.dir/build.make examples/gpt-j/CMakeFiles/gpt-j.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=45,46 "Finished codegen for target gpt-j"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=45 "Finished codegen for target gpt-j"
 .PHONY : examples/gpt-j/CMakeFiles/gpt-j.dir/codegen
 
 # clean rule for target.
@@ -1676,7 +1699,7 @@ examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/all: examples/CMakeFiles/common.dir
 examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/build.make examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/build.make examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=47,48 "Built target gpt-j-quantize"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=46,47 "Built target gpt-j-quantize"
 .PHONY : examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1693,7 +1716,7 @@ gpt-j-quantize: examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/rule
 # codegen rule for target.
 examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/build.make examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=47,48 "Finished codegen for target gpt-j-quantize"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=46,47 "Finished codegen for target gpt-j-quantize"
 .PHONY : examples/gpt-j/CMakeFiles/gpt-j-quantize.dir/codegen
 
 # clean rule for target.
@@ -1713,7 +1736,7 @@ examples/mnist/CMakeFiles/mnist-common.dir/all: src/ggml-metal/CMakeFiles/ggml-m
 examples/mnist/CMakeFiles/mnist-common.dir/all: examples/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-common.dir/build.make examples/mnist/CMakeFiles/mnist-common.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-common.dir/build.make examples/mnist/CMakeFiles/mnist-common.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=51,52 "Built target mnist-common"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=52,53 "Built target mnist-common"
 .PHONY : examples/mnist/CMakeFiles/mnist-common.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1730,7 +1753,7 @@ mnist-common: examples/mnist/CMakeFiles/mnist-common.dir/rule
 # codegen rule for target.
 examples/mnist/CMakeFiles/mnist-common.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-common.dir/build.make examples/mnist/CMakeFiles/mnist-common.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=51,52 "Finished codegen for target mnist-common"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=52,53 "Finished codegen for target mnist-common"
 .PHONY : examples/mnist/CMakeFiles/mnist-common.dir/codegen
 
 # clean rule for target.
@@ -1751,7 +1774,7 @@ examples/mnist/CMakeFiles/mnist-eval.dir/all: examples/CMakeFiles/common.dir/all
 examples/mnist/CMakeFiles/mnist-eval.dir/all: examples/mnist/CMakeFiles/mnist-common.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-eval.dir/build.make examples/mnist/CMakeFiles/mnist-eval.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-eval.dir/build.make examples/mnist/CMakeFiles/mnist-eval.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=53,54 "Built target mnist-eval"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=54,55 "Built target mnist-eval"
 .PHONY : examples/mnist/CMakeFiles/mnist-eval.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1768,7 +1791,7 @@ mnist-eval: examples/mnist/CMakeFiles/mnist-eval.dir/rule
 # codegen rule for target.
 examples/mnist/CMakeFiles/mnist-eval.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-eval.dir/build.make examples/mnist/CMakeFiles/mnist-eval.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=53,54 "Finished codegen for target mnist-eval"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=54,55 "Finished codegen for target mnist-eval"
 .PHONY : examples/mnist/CMakeFiles/mnist-eval.dir/codegen
 
 # clean rule for target.
@@ -1789,12 +1812,12 @@ examples/mnist/CMakeFiles/mnist-train.dir/all: examples/CMakeFiles/common.dir/al
 examples/mnist/CMakeFiles/mnist-train.dir/all: examples/mnist/CMakeFiles/mnist-common.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-train.dir/build.make examples/mnist/CMakeFiles/mnist-train.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-train.dir/build.make examples/mnist/CMakeFiles/mnist-train.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=55,56 "Built target mnist-train"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=56 "Built target mnist-train"
 .PHONY : examples/mnist/CMakeFiles/mnist-train.dir/all
 
 # Build rule for subdir invocation for target.
 examples/mnist/CMakeFiles/mnist-train.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 35
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 34
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/mnist/CMakeFiles/mnist-train.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : examples/mnist/CMakeFiles/mnist-train.dir/rule
@@ -1806,7 +1829,7 @@ mnist-train: examples/mnist/CMakeFiles/mnist-train.dir/rule
 # codegen rule for target.
 examples/mnist/CMakeFiles/mnist-train.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/mnist/CMakeFiles/mnist-train.dir/build.make examples/mnist/CMakeFiles/mnist-train.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=55,56 "Finished codegen for target mnist-train"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=56 "Finished codegen for target mnist-train"
 .PHONY : examples/mnist/CMakeFiles/mnist-train.dir/codegen
 
 # clean rule for target.
@@ -1826,7 +1849,7 @@ examples/sam/CMakeFiles/sam.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/al
 examples/sam/CMakeFiles/sam.dir/all: examples/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/sam/CMakeFiles/sam.dir/build.make examples/sam/CMakeFiles/sam.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/sam/CMakeFiles/sam.dir/build.make examples/sam/CMakeFiles/sam.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=58,59 "Built target sam"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=59,60 "Built target sam"
 .PHONY : examples/sam/CMakeFiles/sam.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1843,7 +1866,7 @@ sam: examples/sam/CMakeFiles/sam.dir/rule
 # codegen rule for target.
 examples/sam/CMakeFiles/sam.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/sam/CMakeFiles/sam.dir/build.make examples/sam/CMakeFiles/sam.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=58,59 "Finished codegen for target sam"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=59,60 "Finished codegen for target sam"
 .PHONY : examples/sam/CMakeFiles/sam.dir/codegen
 
 # clean rule for target.
@@ -1862,7 +1885,7 @@ examples/simple/CMakeFiles/simple-ctx.dir/all: src/ggml-blas/CMakeFiles/ggml-bla
 examples/simple/CMakeFiles/simple-ctx.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/simple/CMakeFiles/simple-ctx.dir/build.make examples/simple/CMakeFiles/simple-ctx.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/simple/CMakeFiles/simple-ctx.dir/build.make examples/simple/CMakeFiles/simple-ctx.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=62,63 "Built target simple-ctx"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=63,64 "Built target simple-ctx"
 .PHONY : examples/simple/CMakeFiles/simple-ctx.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1879,7 +1902,7 @@ simple-ctx: examples/simple/CMakeFiles/simple-ctx.dir/rule
 # codegen rule for target.
 examples/simple/CMakeFiles/simple-ctx.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/simple/CMakeFiles/simple-ctx.dir/build.make examples/simple/CMakeFiles/simple-ctx.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=62,63 "Finished codegen for target simple-ctx"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=63,64 "Finished codegen for target simple-ctx"
 .PHONY : examples/simple/CMakeFiles/simple-ctx.dir/codegen
 
 # clean rule for target.
@@ -1898,7 +1921,7 @@ examples/simple/CMakeFiles/simple-backend.dir/all: src/ggml-blas/CMakeFiles/ggml
 examples/simple/CMakeFiles/simple-backend.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/simple/CMakeFiles/simple-backend.dir/build.make examples/simple/CMakeFiles/simple-backend.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/simple/CMakeFiles/simple-backend.dir/build.make examples/simple/CMakeFiles/simple-backend.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=60,61 "Built target simple-backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=61,62 "Built target simple-backend"
 .PHONY : examples/simple/CMakeFiles/simple-backend.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1915,7 +1938,7 @@ simple-backend: examples/simple/CMakeFiles/simple-backend.dir/rule
 # codegen rule for target.
 examples/simple/CMakeFiles/simple-backend.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/simple/CMakeFiles/simple-backend.dir/build.make examples/simple/CMakeFiles/simple-backend.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=60,61 "Finished codegen for target simple-backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=61,62 "Finished codegen for target simple-backend"
 .PHONY : examples/simple/CMakeFiles/simple-backend.dir/codegen
 
 # clean rule for target.
@@ -1936,7 +1959,7 @@ examples/magika/CMakeFiles/magika.dir/all: examples/CMakeFiles/common.dir/all
 examples/magika/CMakeFiles/magika.dir/all: examples/CMakeFiles/common-ggml.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/magika/CMakeFiles/magika.dir/build.make examples/magika/CMakeFiles/magika.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/magika/CMakeFiles/magika.dir/build.make examples/magika/CMakeFiles/magika.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=49,50 "Built target magika"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=48,49 "Built target magika"
 .PHONY : examples/magika/CMakeFiles/magika.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1953,13 +1976,49 @@ magika: examples/magika/CMakeFiles/magika.dir/rule
 # codegen rule for target.
 examples/magika/CMakeFiles/magika.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/magika/CMakeFiles/magika.dir/build.make examples/magika/CMakeFiles/magika.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=49,50 "Finished codegen for target magika"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=48,49 "Finished codegen for target magika"
 .PHONY : examples/magika/CMakeFiles/magika.dir/codegen
 
 # clean rule for target.
 examples/magika/CMakeFiles/magika.dir/clean:
 	$(MAKE) $(MAKESILENT) -f examples/magika/CMakeFiles/magika.dir/build.make examples/magika/CMakeFiles/magika.dir/clean
 .PHONY : examples/magika/CMakeFiles/magika.dir/clean
+
+#=============================================================================
+# Target rules for target examples/my_mlp/CMakeFiles/mlp-backend.dir
+
+# All Build rule for target.
+examples/my_mlp/CMakeFiles/mlp-backend.dir/all: src/CMakeFiles/ggml-base.dir/all
+examples/my_mlp/CMakeFiles/mlp-backend.dir/all: src/CMakeFiles/ggml.dir/all
+examples/my_mlp/CMakeFiles/mlp-backend.dir/all: src/CMakeFiles/ggml-cpu.dir/all
+examples/my_mlp/CMakeFiles/mlp-backend.dir/all: src/ggml-blas/CMakeFiles/ggml-blas.dir/all
+examples/my_mlp/CMakeFiles/mlp-backend.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
+	$(MAKE) $(MAKESILENT) -f examples/my_mlp/CMakeFiles/mlp-backend.dir/build.make examples/my_mlp/CMakeFiles/mlp-backend.dir/depend
+	$(MAKE) $(MAKESILENT) -f examples/my_mlp/CMakeFiles/mlp-backend.dir/build.make examples/my_mlp/CMakeFiles/mlp-backend.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=50,51 "Built target mlp-backend"
+.PHONY : examples/my_mlp/CMakeFiles/mlp-backend.dir/all
+
+# Build rule for subdir invocation for target.
+examples/my_mlp/CMakeFiles/mlp-backend.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/my_mlp/CMakeFiles/mlp-backend.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
+.PHONY : examples/my_mlp/CMakeFiles/mlp-backend.dir/rule
+
+# Convenience name for target.
+mlp-backend: examples/my_mlp/CMakeFiles/mlp-backend.dir/rule
+.PHONY : mlp-backend
+
+# codegen rule for target.
+examples/my_mlp/CMakeFiles/mlp-backend.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f examples/my_mlp/CMakeFiles/mlp-backend.dir/build.make examples/my_mlp/CMakeFiles/mlp-backend.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=50,51 "Finished codegen for target mlp-backend"
+.PHONY : examples/my_mlp/CMakeFiles/mlp-backend.dir/codegen
+
+# clean rule for target.
+examples/my_mlp/CMakeFiles/mlp-backend.dir/clean:
+	$(MAKE) $(MAKESILENT) -f examples/my_mlp/CMakeFiles/mlp-backend.dir/build.make examples/my_mlp/CMakeFiles/mlp-backend.dir/clean
+.PHONY : examples/my_mlp/CMakeFiles/mlp-backend.dir/clean
 
 #=============================================================================
 # Target rules for target examples/perf-metal/CMakeFiles/perf-metal.dir
@@ -1972,12 +2031,12 @@ examples/perf-metal/CMakeFiles/perf-metal.dir/all: src/ggml-blas/CMakeFiles/ggml
 examples/perf-metal/CMakeFiles/perf-metal.dir/all: src/ggml-metal/CMakeFiles/ggml-metal.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/perf-metal/CMakeFiles/perf-metal.dir/build.make examples/perf-metal/CMakeFiles/perf-metal.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/perf-metal/CMakeFiles/perf-metal.dir/build.make examples/perf-metal/CMakeFiles/perf-metal.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=57 "Built target perf-metal"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=57,58 "Built target perf-metal"
 .PHONY : examples/perf-metal/CMakeFiles/perf-metal.dir/all
 
 # Build rule for subdir invocation for target.
 examples/perf-metal/CMakeFiles/perf-metal.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 32
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/perf-metal/CMakeFiles/perf-metal.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kailashr/ggml/CMakeFiles 0
 .PHONY : examples/perf-metal/CMakeFiles/perf-metal.dir/rule
@@ -1989,7 +2048,7 @@ perf-metal: examples/perf-metal/CMakeFiles/perf-metal.dir/rule
 # codegen rule for target.
 examples/perf-metal/CMakeFiles/perf-metal.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/perf-metal/CMakeFiles/perf-metal.dir/build.make examples/perf-metal/CMakeFiles/perf-metal.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=57 "Finished codegen for target perf-metal"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/kailashr/ggml/CMakeFiles --progress-num=57,58 "Finished codegen for target perf-metal"
 .PHONY : examples/perf-metal/CMakeFiles/perf-metal.dir/codegen
 
 # clean rule for target.
