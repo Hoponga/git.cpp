@@ -4,6 +4,8 @@
 #include "ggml-backend.h"
 #include "ggml-alloc.h"
 #include "ggml-metal.h"
+#include <numeric>
+
 #include "ggml-cuda.h"
 
 #include <cmath>
@@ -11,6 +13,7 @@
 #include <cstring>
 #include <ctime>
 #include <fstream>
+#include <iostream> 
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -58,24 +61,40 @@ struct mlp_model {
 const char * file_name = "./data/model.bin";
 
 
-// .bin file format: 
-// for each tensor: 
+// .bin file format:
+// for each tensor:
 // <num_dims> <dim0> <dim1> ... <dimN> <data>
-// where <data> is a contiguous array of floats 
-// <num_dims> is the number of dimensions of the tensor 
-// <dim0> <dim1> ... <dimN> are the dimensions of the tensor in reverse order 
-// <data> is a contiguous array of floats 
+// where <data> is a contiguous array of floats
+// <num_dims> is the number of dimensions of the tensor
+// <dim0> <dim1> ... <dimN> are the dimensions of the tensor in reverse order
+// <data> is a contiguous array of floats
 // fc1 weight, fc1 bias, fc2 weight, fc2 bias
 
-// TODO: READ IN PRE-TRAINED MNIST WEIGHTS FROM .bin GGUF file to the float arrays in row major order 
+// TODO: READ IN PRE-TRAINED MNIST WEIGHTS FROM .bin GGUF file to the float arrays in row major order
+
 bool read_weights(std::string file_name, float * fc1_weight, float * fc1_bias, float * fc2_weight, float * fc2_bias) {
-    // for now, just set all the weights to 0 
+    // for now, just set all the weights to 0
     memset(fc1_weight, 0, MNIST_NINPUT * HIDDEN_SIZE * sizeof(float));
     memset(fc1_bias, 0, HIDDEN_SIZE * sizeof(float));
     memset(fc2_weight, 0, HIDDEN_SIZE * MNIST_NCLASSES * sizeof(float));
     memset(fc2_bias, 0, MNIST_NCLASSES * sizeof(float));
-    
-    return true; 
+    std::vector<float*> blocks = {fc1_weight, fc1_bias, fc2_weight, fc2_bias};
+
+    auto fin = std::ifstream(file_name, std::ios::binary);
+    for (float* block : blocks){
+        int tensor_dims;
+        fin.read((char *) &tensor_dims, sizeof(int)); 
+        std::vector<int> values(tensor_dims);
+        fin.read((char*)values.data(), sizeof(int) * tensor_dims);
+        int tensor_size = std::accumulate(values.begin(), values.end(), 1, std::multiplies<int>());
+        fin.read((char*) block, sizeof(float) * tensor_size);
+
+    }
+
+    fin.close(); 
+
+    return true;
+
 }
 
 bool load_model(mlp_model & model, float * fc1_weight, float * fc1_bias, float * fc2_weight, float * fc2_bias) {
@@ -160,7 +179,7 @@ bool load_model(mlp_model & model, float * fc1_weight, float * fc1_bias, float *
 
     // 2. create the tensor(s) in that context
     model.images = ggml_new_tensor_2d(model.ctx_static,
-                                    GGML_TYPE_F32,
+                                    MODEL_PRECISION,
                                     MNIST_NINPUT,          // 784
                                     BATCH_SIZE);// batch
 
@@ -206,12 +225,12 @@ struct ggml_cgraph * build_graph(mlp_model& model) {
             ggml_mul_mat(ctx0, model.fc1_weight, model.images),
             model.fc1_bias));
     
-    model.logits = ggml_add(ctx0,
+    struct ggml_tensor * results = ggml_add(ctx0,
             ggml_mul_mat(ctx0, model.fc2_weight, fc1),
             model.fc2_bias);
 
     // build operations nodes
-    ggml_build_forward_expand(gf, model.logits);
+    ggml_build_forward_expand(gf, results);
 
     // delete the temporally context used to build the graph
     ggml_free(ctx0);
@@ -227,6 +246,8 @@ void compute(mlp_model & model, ggml_gallocr_t allocr) {
 
     // allocate tensors
     ggml_gallocr_alloc_graph(allocr, gf);
+
+    std::cout << "HIIII" << std::endl;
 
     int n_threads = 1; // number of threads to perform some operations with multi-threading
 
@@ -248,6 +269,8 @@ bool mnist_batch_load(const std::string & fname,
     GGML_ASSERT(images);
     GGML_ASSERT(images->type == GGML_TYPE_F32);
     GGML_ASSERT(images->ne[0] == MNIST_NINPUT);
+
+    std::cout << "images->ne[1]: " << images->ne[1] << std::endl;
 
     const size_t batch = images->ne[1];
 
@@ -302,6 +325,46 @@ bool mnist_batch_load(const std::string & fname,
     return true;
 }
 
+void print_image(struct ggml_tensor * images) {
+    std::cout << "images->ne[1]: " << images->ne[1] << std::endl;
+    std::cout << "images->ne[0]: " << images->ne[0] << std::endl;
+    std::cout << "images->data: " << images->data << std::endl;
+    
+    // Get the image data from the tensor
+    std::vector<float> img_data(ggml_nelements(images));
+    ggml_backend_tensor_get(images, img_data.data(), 0, ggml_nbytes(images));
+    
+    // Print the first image (assuming batch size >= 1)
+    std::cout << "\nFirst MNIST image (28x28):" << std::endl;
+    for (int row = 0; row < 28; ++row) {
+        for (int col = 0; col < 28; ++col) {
+            float pixel = img_data[row * 28 + col];
+            // Convert normalized [0,1] back to [0,255] for display
+            int intensity = (int)(pixel * 255);
+            // Use ASCII characters to represent intensity
+            if (intensity > 200) {
+                std::cout << "##";
+            } else if (intensity > 150) {
+                std::cout << "**";
+            } else if (intensity > 100) {
+                std::cout << "++";
+            } else if (intensity > 50) {
+                std::cout << "..";
+            } else {
+                std::cout << "  ";
+            }
+        }
+        std::cout << std::endl;
+    }
+    
+    // Print some pixel values for debugging
+    std::cout << "\nFirst 10 pixel values (normalized): ";
+    for (int i = 0; i < 10; ++i) {
+        std::cout << img_data[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 int main(void) {
 
     float fc1_weight[MNIST_NINPUT * HIDDEN_SIZE];
@@ -314,19 +377,21 @@ int main(void) {
     mlp_model model; 
     // read in images 
 
-    load_model(file_name, model, fc1_weight, fc1_bias, fc2_weight, fc2_bias);
+    load_model(model, fc1_weight, fc1_bias, fc2_weight, fc2_bias);
 
-    if (!mnist_batch_load("mnist_raw.txt", model.images)) {
+    if (!mnist_batch_load("/Users/kailashr/ggml/examples/my_mlp/mnist_raw.txt", model.images)) {
         fprintf(stderr, "failed to load images\n");
         return 1;
     }
+
+    print_image(model.images);
 
 
     // STEP 7: BUILD THE COMPUTE GRAPH 
     
     ggml_gallocr_t allocr = NULL; 
     {
-        ggml_gallocr_t allocr = ggml_gallocr_new(ggml_backend_get_default_buffer_type(model.backend));
+        allocr = ggml_gallocr_new(ggml_backend_get_default_buffer_type(model.backend));
         struct ggml_cgraph * gf = build_graph(model);
         ggml_gallocr_reserve(allocr, gf);
         size_t mem_size = ggml_gallocr_get_buffer_size(allocr, 0);
